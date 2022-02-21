@@ -1,17 +1,15 @@
+import 'package:custom_painter/src/theme/theme.dart';
 import 'package:flutter/material.dart';
-
-import 'src/pages/pinterest_page.dart';
-// import 'src/pages/slideshow_page.dart';
-
-// import 'src/pages/slideshow_page.dart';
-// import 'package:custom_painter/src/pages/headers_page.dart';
-// import 'package:custom_painter/src/pages/animaciones_page.dart';
-// import 'package:custom_painter/src/challenges/cuadrado_animado_page.dart';
-
+import 'package:provider/provider.dart';
+import 'src/pages/launcher_page.dart';
 void main() {
-  runApp(const MyApp());
+  runApp(
+    ChangeNotifierProvider(
+      create: ((context) => ThemeChanger()),
+      child: const MyApp()
+    )
+  );
 }
-
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
   @override
@@ -19,7 +17,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Diseños App',
-      home: PinterestPage()
+      home: LauncherPage()
     );
   }
 }
