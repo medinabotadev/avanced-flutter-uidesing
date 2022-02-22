@@ -1,3 +1,4 @@
+import 'package:custom_painter/src/theme/theme.dart';
 import 'package:custom_painter/src/widgets/pinterest_menu.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
@@ -36,12 +37,15 @@ class _PinterestMenuPositioned extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final mostrar = Provider.of<_MenuModel>(context).mostrar;
+    final appTheme = Provider.of<ThemeChanger>(context).currentTheme;
     return Positioned(
       bottom: 30.0,
       child: SizedBox(
         width: MediaQuery.of(context).size.width,
         child: Align(
-          child: PinterestMenu(mostrar: mostrar,),
+          child: PinterestMenu(
+            mostrar: mostrar,
+            ),
         ),
       )
     );
