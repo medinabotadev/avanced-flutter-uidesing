@@ -1,23 +1,43 @@
+import 'package:custom_painter/src/labs/slideshow_page.dart';
 import 'package:custom_painter/src/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
 
+import '../models/layout_model.dart';
 import '../routes/routes.dart';
 
-class LauncherPage extends StatelessWidget {
-  const LauncherPage({Key? key}) : super(key: key);
+class LauncherTabletPage extends StatelessWidget {
+  const LauncherTabletPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final appTheme = Provider.of<ThemeChanger>(context);
+    final layoutModel = Provider.of<LayoutModel>(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text('Diseños en Flutter - Telefono'),
+        title: Text('Diseños en Flutter - Tablet'),
         backgroundColor: appTheme.currentTheme.colorScheme.secondary,
       ),
       drawer: _MenuPrincipal(),
-      body: _ListaOpciones(),
+      body: Row(
+        children: [
+          Container(
+            width: 300,
+            height: double.infinity,
+            child: _ListaOpciones(),
+          ),
+          Container(
+            width: 1,
+            height: double.infinity,
+            color: (appTheme.darkTheme) ? Colors.grey : appTheme.currentTheme.colorScheme.secondary,
+          ),
+          Expanded(
+            child: layoutModel.currentPage
+          )
+        ],
+      ),
+      // body: _ListaOpciones(),
     );
   }
 }
@@ -38,7 +58,9 @@ class _ListaOpciones extends StatelessWidget {
           title: Text(pageRoutes[index].titulo),
           trailing: Icon(Icons.chevron_right, color: appTheme.colorScheme.secondary,),
           onTap: (){
-            Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => pageRoutes[index].page));
+            final layoutModel = Provider.of<LayoutModel>(context, listen: false);
+            layoutModel.currentPage = pageRoutes[index].page;
+            // Navigator.push(context, MaterialPageRoute(builder: (BuildContext context) => pageRoutes[index].page));
           },
         );
       },
